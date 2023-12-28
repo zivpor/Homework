@@ -17,7 +17,7 @@ namespace Homework
         {
             while (lst.HasNext())
             {
-                
+
                 if (lst.GetValue() < lst.GetNext().GetValue())
                 {
                     lst = lst.GetNext();
@@ -40,7 +40,7 @@ namespace Homework
             {
                 return true;
             }
-            if (lst.HasNext()&&lst.GetValue() > lst.GetNext().GetValue())
+            if (lst.HasNext() && lst.GetValue() > lst.GetNext().GetValue())
             {
                 return false;
             }
@@ -63,7 +63,7 @@ namespace Homework
         // לא קיים xהמקרה הגרוע: ה
         // פעמים n הפעולה מתבצעת פעם אחת ובכל סיבוב הלולאה מתבצעות
         //מכאן שסיבוכיות הפעולה: o(n)
-        public static bool IsExists<T>(Node<T> lst, T x) where T : IEquatable<T> 
+        public static bool IsExists<T>(Node<T> lst, T x) where T : IEquatable<T>
         {
             while (lst != null)
             {
@@ -96,6 +96,24 @@ namespace Homework
 
 
         }
+        public static void Append<T>(Node<T> lst, Node<T> newn)
+        {
+            while (lst.HasNext())
+            {
+                lst = lst.GetNext();
+            }
+            lst.SetNext(newn);
+        }
+        public static void AddToMiddle(Node<int> lst, Node<int> newn)
+        {
+            while(lst.HasNext() && lst.GetNext().GetValue()<newn.GetValue())
+            {
+                lst=lst.GetNext();
+            }
+            newn.SetNext(lst.GetNext());
+            lst.SetNext(newn);
+        }
+
 
 
         static void Main(string[] args)
