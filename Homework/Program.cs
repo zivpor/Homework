@@ -113,8 +113,26 @@ namespace Homework
             newn.SetNext(lst.GetNext());
             lst.SetNext(newn);
         }
+        public static Node<T> Deletevlue<T>(Node<T> lst, T value)
+        {
+            Node<T> head = lst;  
+            if (lst.GetValue().Equals(value))
+            {
+                head = lst.GetNext();
+                lst.SetNext(null);
+                return head;
+            }
+            Node<T> next= lst.GetNext();
+            while(lst.HasNext()&&!next.GetValue().Equals(value))
+            {
+                lst = next;
+                next=lst.GetNext();
+            }
+            lst.SetNext(next.GetNext());
+            next.SetNext(null);
 
-
+            return next;
+        }
 
         static void Main(string[] args)
         {
