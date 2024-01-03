@@ -142,9 +142,9 @@ namespace Homework
             int counter = 0;
             while(lst!=null && lst.HasNext())
             {
-                while(lst.GetValue() == x)
+                while(lst!=null&&lst.GetValue() == x)
                 {
-                    if(lst.GetNext().GetValue() != x)
+                    if(lst.HasNext()&&lst.GetNext().GetValue() != x)
                     {
                         counter++;
                     }
