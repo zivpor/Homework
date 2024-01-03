@@ -153,7 +153,8 @@ namespace Homework
                 
                 lst=lst.GetNext();
             }
-
+            if(lst.GetValue()==x)
+            return counter+1;
             return counter;
         }
 
@@ -180,7 +181,7 @@ namespace Homework
                 //Console.WriteLine(IsExistsRecursive(lst4, 'i'));//should print True
                 //Console.WriteLine(IsExistsRecursive(lst4, 'I'));//should print False
 
-                Node<int> lst1 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(6, new Node<int>(3, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(22, new Node<int>(3))))))))));
+                Node<int> lst1 = new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4))))))))));
 
                 Console.WriteLine(RezefCount(lst1,4));
 
