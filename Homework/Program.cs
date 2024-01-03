@@ -115,8 +115,11 @@ namespace Homework
         }
         public static Node<T> Deletevlue<T>(Node<T> lst, T value)
         {
-            Node<T> head = lst;  
-            if (lst.GetValue().Equals(value))
+            Node<T> head = lst;
+            if (lst == null)
+                return head;
+
+            if ( lst.GetValue().Equals(value))
             {
                 head = lst.GetNext();
                 lst.SetNext(null);
@@ -131,32 +134,55 @@ namespace Homework
             lst.SetNext(next.GetNext());
             next.SetNext(null);
 
-            return next;
+            return head;
         }
+
+        public static int RezefCount(Node<int> lst, int x)
+        {
+            int counter = 0;
+            while(lst!=null && lst.HasNext())
+            {
+                while(lst.GetValue() == x)
+                {
+                    if(lst.GetNext().GetValue() != x)
+                    {
+                        counter++;
+                    }
+                    lst=lst.GetNext();
+                }
+                
+                lst=lst.GetNext();
+            }
+
+            return counter;
+        }
+
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
             {
-                Node<int> lst1 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(7))));//[4, next]=>[5, next]=>[6, next]=>[7, next]=>null
-                Console.WriteLine(IsAscending(lst1));//should print True
-                Console.WriteLine(IsAscendingRecursive(lst1));//should print True
-                Node<int> lst2 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(2))));//[4, next]=>[5, next]=>[6, next]=>[2, next]=>null
-                Console.WriteLine(IsAscending(lst2));//should print False
-                Console.WriteLine(IsAscendingRecursive(lst2));//should print False
-                Node<int> lst3 = new Node<int>(4, new Node<int>(5, new Node<int>(4, new Node<int>(9))));//[4, next]=>[5, next]=>[4, next]=>[9, next]=>null
-                Console.WriteLine(IsAscending(lst3));//should print False
-                Console.WriteLine(IsAscendingRecursive(lst3));//should print False
+                //Node<int> lst1 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(7))));//[4, next]=>[5, next]=>[6, next]=>[7, next]=>null
+                //Console.WriteLine(IsAscending(lst1));//should print True
+                //Console.WriteLine(IsAscendingRecursive(lst1));//should print True
+                //Node<int> lst2 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(2))));//[4, next]=>[5, next]=>[6, next]=>[2, next]=>null
+                //Console.WriteLine(IsAscending(lst2));//should print False
+                //Console.WriteLine(IsAscendingRecursive(lst2));//should print False
+                //Node<int> lst3 = new Node<int>(4, new Node<int>(5, new Node<int>(4, new Node<int>(9))));//[4, next]=>[5, next]=>[4, next]=>[9, next]=>null
+                //Console.WriteLine(IsAscending(lst3));//should print False
+                //Console.WriteLine(IsAscendingRecursive(lst3));//should print False
 
-                Node<char> lst4 = new Node<char>('t', new Node<char>('A', new Node<char>('l', new Node<char>('s', new Node<char>('i')))));//['t', next]=>['a', next]=>['l', next]=>['s', next]=>['i', next]=>null
-                Console.WriteLine(IsExists(lst1, 5));//should print True
-                Console.WriteLine(IsExists(lst4, 'i'));//should print True
-                Console.WriteLine(IsExists(lst4, 'I'));//should print False
-                Console.WriteLine(IsExistsRecursive(lst1, 5));//should print True
-                Console.WriteLine(IsExistsRecursive(lst4, 'i'));//should print True
-                Console.WriteLine(IsExistsRecursive(lst4, 'I'));//should print False
+                //Node<char> lst4 = new Node<char>('t', new Node<char>('A', new Node<char>('l', new Node<char>('s', new Node<char>('i')))));//['t', next]=>['a', next]=>['l', next]=>['s', next]=>['i', next]=>null
+                //Console.WriteLine(IsExists(lst1, 5));//should print True
+                //Console.WriteLine(IsExists(lst4, 'i'));//should print True
+                //Console.WriteLine(IsExists(lst4, 'I'));//should print False
+                //Console.WriteLine(IsExistsRecursive(lst1, 5));//should print True
+                //Console.WriteLine(IsExistsRecursive(lst4, 'i'));//should print True
+                //Console.WriteLine(IsExistsRecursive(lst4, 'I'));//should print False
 
+                Node<int> lst1 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(6, new Node<int>(3, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(22, new Node<int>(3))))))))));
 
+                Console.WriteLine(RezefCount(lst1,4));
 
             }
         }
