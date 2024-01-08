@@ -63,7 +63,7 @@ namespace Homework
         // לא קיים xהמקרה הגרוע: ה
         // פעמים n הפעולה מתבצעת פעם אחת ובכל סיבוב הלולאה מתבצעות
         //מכאן שסיבוכיות הפעולה: o(n)
-        public static bool IsExists<T>(Node<T> lst, T x) where T : IEquatable<T>
+        public static bool IsExists<T>(Node<T> lst, T x)
         {
             while (lst != null)
             {
@@ -106,9 +106,9 @@ namespace Homework
         }
         public static void AddToMiddle(Node<int> lst, Node<int> newn)
         {
-            while(lst.HasNext() && lst.GetNext().GetValue()<newn.GetValue())
+            while (lst.HasNext() && lst.GetNext().GetValue() < newn.GetValue())
             {
-                lst=lst.GetNext();
+                lst = lst.GetNext();
             }
             newn.SetNext(lst.GetNext());
             lst.SetNext(newn);
@@ -119,43 +119,191 @@ namespace Homework
             if (lst == null)
                 return head;
 
-            if ( lst.GetValue().Equals(value))
+            if (lst.GetValue().Equals(value))
             {
                 head = lst.GetNext();
                 lst.SetNext(null);
                 return head;
             }
-            Node<T> next= lst.GetNext();
-            while(lst.HasNext()&&!next.GetValue().Equals(value))
+            Node<T> next = lst.GetNext();
+            while (lst.HasNext() && !next.GetValue().Equals(value))
             {
                 lst = next;
-                next=lst.GetNext();
+                next = lst.GetNext();
             }
             lst.SetNext(next.GetNext());
             next.SetNext(null);
 
             return head;
         }
-
+        //page 76 question 2
+        // סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
         public static int RezefCount(Node<int> lst, int x)
         {
             int counter = 0;
-            while(lst!=null && lst.HasNext())
+            int a = 0;
+            int b = 0;
+            while (lst != null && lst.HasNext())
             {
-                while(lst!=null&&lst.GetValue() == x)
+                if (a == x && b != x)
                 {
-                    if(lst.HasNext()&&lst.GetNext().GetValue() != x)
-                    {
-                        counter++;
-                    }
-                    lst=lst.GetNext();
+                    counter++;
                 }
-                
+                a = b;
+                b = lst.GetValue();
+                lst = lst.GetNext();
+            }
+            if (b == x)
+            {
+                counter++;
+            }
+            return counter;
+        }
+        //page 76 question 4
+        // סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
+        public static char CountEven(Node<int> lst)
+        {
+            int evenCounter = 0;
+            int oddCounter = 0;
+            while (lst != null)
+            {
+                if (lst.GetValue() % 2 == 0)
+                {
+                    evenCounter++;
+                }
+                else
+                    oddCounter++;
+                lst = lst.GetNext();
+            }
+            if (evenCounter > oddCounter)
+            {
+                return 'z';
+            }
+            else if (oddCounter > evenCounter)
+            {
+                return 'e';
+            }
+            else
+                return 's';
+        }
+
+
+        //page 76 question 6
+        //סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
+        public static Node<T> NoDouble<T>(Node<T> lst)
+        {
+            Node<T> newlst = new Node<T>(lst.GetValue());
+            Node<T> head = newlst;
+            while (lst != null && lst.HasNext())
+            {
+                Node<T> dummy = head;
+                if (!IsExists<T>(dummy, lst.GetValue()))
+                {
+                    newlst.SetNext(new Node<T>(lst.GetValue()));
+                    newlst = newlst.GetNext();
+                }
+                lst = lst.GetNext();
+            }
+            return head;
+        }
+
+        //page 76 question 8
+        //סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
+        public static bool IsSorted(Node<int> lst)
+        {
+            while (lst.HasNext())
+            {
+
+                if (lst.GetValue() < lst.GetNext().GetValue())
+                {
+                    lst = lst.GetNext();
+                }
+                else
+                    return false;
+            }
+            return true;
+        }
+
+        //page 76 question 10
+        // סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
+        public static Node<int> Following(int beginner,int num)
+        {
+            Node<int> lst=new Node<int>(beginner);
+            Node<int> head = lst;
+           
+            for(int i = beginner+1; i < beginner+num;i++)
+            {
+                lst.SetNext(new Node<int>(i));
                 lst=lst.GetNext();
             }
-            if(lst.GetValue()==x)
-            return counter+1;
-            return counter;
+            return head;
+        }
+
+        //page 76 question 12
+        // סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
+        public static bool IsBalanced(Node<int> lst)
+        {
+            int sum = 0; 
+            int countBigger=0;
+            int countSmaller=0;
+            while(lst!=null)
+            {
+                sum+=lst.GetValue();
+                lst=lst.GetNext();
+            }
+            while(lst!=null)
+            {
+                if(lst.GetValue() < sum)
+                {
+                    countSmaller++;
+                }
+                else
+                    countBigger++;
+            }
+            return countSmaller==countBigger;
+        }
+
+
+        //page 76 question 14
+        // סיבוכיות O(n)
+        // אורך קלט n
+        //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
+        public static int FindMax(Node<int> lst)
+        {
+            int max = int.MinValue;
+            while (lst != null)
+            {
+                if (lst.GetValue() > max)
+                {
+                    max = lst.GetValue();
+                    lst= lst.GetNext();
+                }
+
+            }
+            return max;
+        }
+
+        public static void DeleteBiggest(Node<int> lst, int n)
+        {
+            int max = 0;
+            for(int i=0;i<n;i++)
+            {
+                max=FindMax(lst);
+                Deletevlue(lst, max);
+                lst=lst.GetNext();
+            }
         }
 
 
@@ -181,9 +329,12 @@ namespace Homework
                 //Console.WriteLine(IsExistsRecursive(lst4, 'i'));//should print True
                 //Console.WriteLine(IsExistsRecursive(lst4, 'I'));//should print False
 
-                Node<int> lst1 = new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4))))))))));
-
-                Console.WriteLine(RezefCount(lst1,4));
+                Node<int> lst1 = new Node<int>(4, new Node<int>(4, new Node<int>(8, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4))))))))));
+                Node<int> lst2 = new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, new Node<int>(6))))));
+                //Console.WriteLine(RezefCount(lst1, 4));
+                //Console.WriteLine(CountEven(lst2));
+                Console.WriteLine(NoDouble(lst1));
+                Console.WriteLine(Following(5,4));
 
             }
         }
