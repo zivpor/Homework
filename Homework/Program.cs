@@ -200,13 +200,14 @@ namespace Homework
         {
             Node<T> newlst = new Node<T>(lst.GetValue());
             Node<T> head = newlst;
-            while (lst != null && lst.HasNext())
+            Node<T> tail = newlst;
+            while (lst != null )
             {
-                Node<T> dummy = head;
-                if (!IsExists<T>(dummy, lst.GetValue()))
+               
+                if (!IsExists<T>(head, lst.GetValue()))
                 {
-                    newlst.SetNext(new Node<T>(lst.GetValue()));
-                    newlst = newlst.GetNext();
+                    tail.SetNext(new Node<T>(lst.GetValue()));
+                    tail = tail.GetNext();
                 }
                 lst = lst.GetNext();
             }
@@ -294,6 +295,8 @@ namespace Homework
             }
             return max;
         }
+
+       
 
         public static void DeleteBiggest(Node<int> lst, int n)
         {
