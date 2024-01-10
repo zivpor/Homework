@@ -309,7 +309,47 @@ namespace Homework
             }
         }
 
+        public static int WhichBigger(Node<int> lst,Node<int> lst2)
+        {
+            int count1 = 0;
+            int count2 = 0;
+            Node<int> head = lst;
+            Node<int> head2 = lst2;
+            while(lst!=null)
+            {
+                count1++;
+                lst=lst.GetNext();
+            }
+            lst = head;
+            while (lst2 != null)
+            {
+                count2++;
+                lst2 = lst2.GetNext();
+            }
+            lst2 =head2;
 
+
+            if (count1 > count2)
+                return 1;
+
+            else if(count1 < count2)
+                return 2;
+
+            else
+            {
+                while(lst!=null && lst.HasNext())
+                { 
+                   if (head.GetValue() > head2.GetValue())
+                      return 1;
+                   else if(head.GetValue() < head2.GetValue())
+                       return 2;
+                   lst=lst.GetNext();
+                }
+                return 0;
+
+            }
+        }
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
