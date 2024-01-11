@@ -201,9 +201,9 @@ namespace Homework
             Node<T> newlst = new Node<T>(lst.GetValue());
             Node<T> head = newlst;
             Node<T> tail = newlst;
-            while (lst != null )
+            while (lst != null)
             {
-               
+
                 if (!IsExists<T>(head, lst.GetValue()))
                 {
                     tail.SetNext(new Node<T>(lst.GetValue()));
@@ -237,15 +237,15 @@ namespace Homework
         // סיבוכיות O(n)
         // אורך קלט n
         //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
-        public static Node<int> Following(int beginner,int num)
+        public static Node<int> Following(int beginner, int num)
         {
-            Node<int> lst=new Node<int>(beginner);
+            Node<int> lst = new Node<int>(beginner);
             Node<int> head = lst;
-           
-            for(int i = beginner+1; i < beginner+num;i++)
+
+            for (int i = beginner + 1; i < beginner + num; i++)
             {
                 lst.SetNext(new Node<int>(i));
-                lst=lst.GetNext();
+                lst = lst.GetNext();
             }
             return head;
         }
@@ -256,24 +256,24 @@ namespace Homework
         //  במקרה הגרוע יתבצעוn   פעולות  ולכן סהכ
         public static bool IsBalanced(Node<int> lst)
         {
-            int sum = 0; 
-            int countBigger=0;
-            int countSmaller=0;
-            while(lst!=null)
+            int sum = 0;
+            int countBigger = 0;
+            int countSmaller = 0;
+            while (lst != null)
             {
-                sum+=lst.GetValue();
-                lst=lst.GetNext();
+                sum += lst.GetValue();
+                lst = lst.GetNext();
             }
-            while(lst!=null)
+            while (lst != null)
             {
-                if(lst.GetValue() < sum)
+                if (lst.GetValue() < sum)
                 {
                     countSmaller++;
                 }
                 else
                     countBigger++;
             }
-            return countSmaller==countBigger;
+            return countSmaller == countBigger;
         }
 
 
@@ -289,36 +289,36 @@ namespace Homework
                 if (lst.GetValue() > max)
                 {
                     max = lst.GetValue();
-                    lst= lst.GetNext();
+                    lst = lst.GetNext();
                 }
 
             }
             return max;
         }
 
-       
+
 
         public static void DeleteBiggest(Node<int> lst, int n)
         {
             int max = 0;
-            for(int i=0;i<n;i++)
+            for (int i = 0; i < n; i++)
             {
-                max=FindMax(lst);
+                max = FindMax(lst);
                 Deletevlue(lst, max);
-                lst=lst.GetNext();
+                lst = lst.GetNext();
             }
         }
 
-        public static int WhichBigger(Node<int> lst,Node<int> lst2)
+        public static int WhichBigger(Node<int> lst, Node<int> lst2)
         {
             int count1 = 0;
             int count2 = 0;
             Node<int> head = lst;
             Node<int> head2 = lst2;
-            while(lst!=null)
+            while (lst != null)
             {
                 count1++;
-                lst=lst.GetNext();
+                lst = lst.GetNext();
             }
             lst = head;
             while (lst2 != null)
@@ -326,30 +326,65 @@ namespace Homework
                 count2++;
                 lst2 = lst2.GetNext();
             }
-            lst2 =head2;
+            lst2 = head2;
 
 
             if (count1 > count2)
                 return 1;
 
-            else if(count1 < count2)
+            else if (count1 < count2)
                 return 2;
 
             else
             {
-                while(lst!=null && lst.HasNext())
-                { 
-                   if (head.GetValue() > head2.GetValue())
-                      return 1;
-                   else if(head.GetValue() < head2.GetValue())
-                       return 2;
-                   lst=lst.GetNext();
+                while (lst != null && lst.HasNext())
+                {
+                    if (head.GetValue() > head2.GetValue())
+                        return 1;
+                    else if (head.GetValue() < head2.GetValue())
+                        return 2;
+                    lst = lst.GetNext();
                 }
                 return 0;
 
             }
         }
-        
+        public static Node<int> Merge(Node<int> lst, Node<int> lst2)
+        {
+            Node<int>head=lst;
+            Node<int>head2=lst2;
+            Node<int>newNode=new Node<int>(lst.GetValue());
+            Node<int>tail=newNode;
+            lst=lst.GetNext();
+            int turn=2;
+            while(lst!=null && lst2!=null)
+            {
+                if (turn%2==0)
+                {
+                    tail.SetNext(lst2);
+                }
+                else
+                    tail.SetNext(lst);
+
+                turn++;
+                tail=tail.GetNext();
+                lst=lst.GetNext();
+                lst2=lst2.GetNext();
+            }
+            while(lst!=null)
+            {
+                tail.SetNext(new Node<int>(lst.GetValue()));
+                tail=tail.GetNext();
+                lst=lst.GetNext();
+            }
+            while (lst2!=null)
+            {
+                tail.SetNext(new Node<int>(lst2.GetValue()));
+                tail = tail.GetNext();
+                lst2 = lst2.GetNext();
+            }
+            return newNode;
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
@@ -377,7 +412,7 @@ namespace Homework
                 //Console.WriteLine(RezefCount(lst1, 4));
                 //Console.WriteLine(CountEven(lst2));
                 Console.WriteLine(NoDouble(lst1));
-                Console.WriteLine(Following(5,4));
+                Console.WriteLine(Following(5, 4));
 
             }
         }
