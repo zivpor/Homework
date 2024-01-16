@@ -1,4 +1,5 @@
-﻿using static Homework.Nodes;
+﻿using System.Reflection.Metadata.Ecma335;
+using static Homework.Nodes;
 
 namespace Homework
 {
@@ -11,8 +12,6 @@ namespace Homework
         //המקרה הגרוע: החוליות מסודרות בסדר עולה
         // פעמיםn הפעולה מתבצעת פעם אחת ובכל סיבוב הלולאה מתבצעות
         //מכאן שסיבוכיות הפעולה:o(n) 
-
-
         public static bool IsAscending(Node<int> lst)
         {
             while (lst.HasNext())
@@ -96,6 +95,7 @@ namespace Homework
 
 
         }
+        //newn אתlstפעולה המקבלת שתי שרשראות ומוסיפה ל
         public static void Append<T>(Node<T> lst, Node<T> newn)
         {
             while (lst.HasNext())
@@ -104,6 +104,7 @@ namespace Homework
             }
             lst.SetNext(newn);
         }
+        //lst לאמצע newn פעולה המקבלת שתי שרשראות של חוליות ומוסיפה את
         public static void AddToMiddle(Node<int> lst, Node<int> newn)
         {
             while (lst.HasNext() && lst.GetNext().GetValue() < newn.GetValue())
@@ -349,7 +350,7 @@ namespace Homework
 
             }
         }
-        public static Node<int> Merge(Node<int> lst, Node<int> lst2)
+        public static Node<int> MergeTry(Node<int> lst, Node<int> lst2)
         {
             Node<int>head=lst;
             Node<int>head2=lst2;
@@ -385,14 +386,101 @@ namespace Homework
             }
             return newNode;
         }
+
+        public static Node<int> Merge(Node<int> lst,Node<int> lst2)
+        {
+            Node<int> dummy = new Node<int>(0);
+            Node<int> last = dummy;
+            while(lst!=null && lst2!=null)
+            {
+                if(lst.GetValue()<lst2.GetValue())
+                {
+                    last.SetNext(new Node<int>(lst.GetValue()));
+                    last=last.GetNext();
+                    lst=lst.GetNext();
+                }
+                else
+                {
+                    last.SetNext(new Node<int>(lst2.GetValue()));
+                    last = last.GetNext();
+                    lst2 = lst2.GetNext();
+                }
+            }
+            Node<int> temp;
+            if(lst==null)
+            {
+                temp = lst2;
+            }
+            else
+            {
+                temp=lst;
+            }
+            while(temp!=null)
+            {
+                last.SetNext(new Node<int>(temp.GetValue()));
+                last=last.GetNext();
+                temp=temp.GetNext();
+            }
+            return dummy.GetNext();
+        }
+
+
+        public static Node<int> Reverse(Node<int> lst)
+        {
+            if (lst == null)
+                return null;
+            Node<int> tail = lst;
+            Node<int> head = lst;
+            while (tail.HasNext())
+            {
+                Node<int> next = tail.GetNext();
+                tail.SetNext(next.GetNext());
+                next.SetNext(head);
+                head = next;
+            }
+            return head;
+        }
+
+
+
+        public static int CountFirst(Node<int> lst, int num)
+        {
+            int count = 0;
+            while(lst!=null&&lst.GetValue()!=num)
+            {
+                count++;
+                lst=lst.GetNext();
+            }
+            if(lst!=null)
+            {
+                return count;
+            }
+            return -1;
+        }
+        public static int CountLast(Node<int> lst, int num)
+        {
+            lst=Reverse(lst);
+            return CountFirst(lst, num);
+        }
+
+        public static int CalcWeight(Node<int> lst,int num)
+        {
+            int countFirst=CountFirst(lst,num);
+            int countLast=CountLast(lst,num);
+            if (countFirst == 0)
+                return -1;
+            else
+                return countFirst + countLast;
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
             {
-                //Node<int> lst1 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(7))));//[4, next]=>[5, next]=>[6, next]=>[7, next]=>null
+                Node<int> lst1 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(7))));//[4, next]=>[5, next]=>[6, next]=>[7, next]=>null
                 //Console.WriteLine(IsAscending(lst1));//should print True
                 //Console.WriteLine(IsAscendingRecursive(lst1));//should print True
-                //Node<int> lst2 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(2))));//[4, next]=>[5, next]=>[6, next]=>[2, next]=>null
+                Node<int> lst2 = new Node<int>(4, new Node<int>(5, new Node<int>(6, new Node<int>(2))));//[4, next]=>[5, next]=>[6, next]=>[2, next]=>null
                 //Console.WriteLine(IsAscending(lst2));//should print False
                 //Console.WriteLine(IsAscendingRecursive(lst2));//should print False
                 //Node<int> lst3 = new Node<int>(4, new Node<int>(5, new Node<int>(4, new Node<int>(9))));//[4, next]=>[5, next]=>[4, next]=>[9, next]=>null
@@ -407,13 +495,13 @@ namespace Homework
                 //Console.WriteLine(IsExistsRecursive(lst4, 'i'));//should print True
                 //Console.WriteLine(IsExistsRecursive(lst4, 'I'));//should print False
 
-                Node<int> lst1 = new Node<int>(4, new Node<int>(4, new Node<int>(8, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4))))))))));
-                Node<int> lst2 = new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, new Node<int>(6))))));
+                //Node<int> lst1 = new Node<int>(4, new Node<int>(4, new Node<int>(8, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4, new Node<int>(4))))))))));
+                //Node<int> lst2 = new Node<int>(1, new Node<int>(2, new Node<int>(3, new Node<int>(4, new Node<int>(5, new Node<int>(6))))));
                 //Console.WriteLine(RezefCount(lst1, 4));
                 //Console.WriteLine(CountEven(lst2));
-                Console.WriteLine(NoDouble(lst1));
-                Console.WriteLine(Following(5, 4));
-
+                //Console.WriteLine(NoDouble(lst1));
+                //Console.WriteLine(Following(5, 4));
+                Console.WriteLine(Merge(lst1,lst2));
             }
         }
     }
