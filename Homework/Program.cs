@@ -1,5 +1,5 @@
 ﻿using System.Reflection.Metadata.Ecma335;
-using static Homework.Nodes;
+
 
 namespace Homework
 {
@@ -472,6 +472,10 @@ namespace Homework
             else
                 return countFirst + countLast;
         }
+        //public static int TheCeapest(CityBuses buses, Station start, Station end)
+        //{
+
+        //}
 
         static void Main(string[] args)
         {

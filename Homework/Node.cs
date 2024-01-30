@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homework
 {
-    public class Nodes
-    {
+    
         public class Node<T>
         {
             private T value;
@@ -59,4 +58,4 @@ namespace Homework
         }
 
     }
-}
+
